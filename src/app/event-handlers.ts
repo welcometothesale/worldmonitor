@@ -231,6 +231,12 @@ export class EventHandlerManager implements AppModule {
       document.addEventListener('fullscreenchange', this.boundFullscreenHandler);
     }
 
+    document.getElementById('consoleBackBtn')?.addEventListener('click', () => {
+      if (window.parent !== window) {
+        window.parent.postMessage({ type: 'wm-back-to-console' }, '*');
+      }
+    });
+
     const regionSelect = document.getElementById('regionSelect') as HTMLSelectElement;
     regionSelect?.addEventListener('change', () => {
       this.ctx.map?.setView(regionSelect.value as MapView);
